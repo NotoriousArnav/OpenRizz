@@ -7,6 +7,11 @@ name = "pypi"
 langchain = "*"
 langchain-groq = "*"
 langchain-community = "*"
+markdown = "*"
+bs4 = "*"
+fastapi = "*"
+langserve = {extras = ["all"], version = "*"}
+uvicorn = "*"
 
 [dev-packages]
 
