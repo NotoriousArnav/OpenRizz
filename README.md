@@ -1,6 +1,5 @@
 
-#OpenRizz API Documentation
-==========================
+# OpenRizz API Documentation
 
 ## Overview
 OpenRizz is a simple API that provides pickup lines and flirt lines. It allows you to generate a response based on the input provided.
