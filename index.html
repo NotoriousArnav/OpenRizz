@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenRizz</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+  </head>
+  <body class="bg-gray-200 m-8">
+    <!--Generate a SImple Documentation for this APplication-->
+    <h1 class="text-4xl">OpenRizz</h1>
+    <p>OpenRizz is a simple API to give you Pickup lines and Flirt lines</p>
+
+    <main>
+      Usage: <br>
+      <div class="grid md:grid-cols-2 gap-4">
+        
+      <pre class="border-2 border-gray-300 bg-gray-100">
+      <code class="">
+# curl
+curl --location --request POST 'http://localhost:8000/rizz/invoke' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+        "input" : {
+          "description":"Her name is Shreya. She looks cute and has a Heart of Gold (metaphor)!",
+          "response_type":"Funny, Flirty, Seductive"}
+     }'
+      </code>
+      </pre>
+      <pre class="border-2 border-gray-300 bg-gray-100">
+      <code class="language-python">
+# Python 
+import requests
+
+url = "http://localhost:8000/rizz/invoke"
+
+payload = "{\"input\": {\"description\": \"Her name is Shreya. She looks cute and has a Heart of Gold (metaphor)!\",\"response_type\": \"Funny, Flirty, Seductive\"}}"
+headers = { 'Content-Type': 'application/json' }
+response = requests.request("POST", url, headers=headers, data=payload)
+      </code>
+      </pre>
+      <pre>
+      <code class="language-go">
+# Go
+package main
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"strings"
+)
+
+func main() {
+	client := &http.Client{}
+	var data = strings.NewReader(`{
+        "input" : {
+          "description":"Her name is Shreya. She looks cute and has a Heart of Gold (metaphor)!",
+          "response_type":"Funny, Flirty, Seductive"}
+     }`)
+	req, err := http.NewRequest("POST", "http://localhost:8000/rizz/invoke", data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	bodyText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%s\n", bodyText)
+}
+      </code>
+      </pre>
+      <pre>
+      <code class="language-js">
+# JS
+fetch('http://localhost:8000/rizz/invoke', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    'input': {
+      'description': 'Her name is Shreya. She looks cute and has a Heart of Gold (metaphor)!',
+      'response_type': 'Funny, Flirty, Seductive'
+    }
+  })
+});  </code>
+      </pre>
+      </div>
+    </main>
+    <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre code').forEach((el) => {
+          hljs.highlightElement(el);
+        });
+});
+    </script>
+  </body>
+</html>
